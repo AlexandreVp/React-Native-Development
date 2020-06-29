@@ -50,28 +50,42 @@ export const fetchProducts = () => {
 
 export const deleteProduct = productId =>
 {
-    return {
-        type: DELETE_PRODUCT,
-        pid: productId
-    }
+    return async dispatch => {
+
+        await fetch(
+            `https://app-shop-d3a87.firebaseio.com/products/${productId}.json`, 
+            {
+                method: 'DELETE',
+            }
+        );
+
+        dispatch({
+            type: DELETE_PRODUCT,
+            pid: productId
+        });
+    };
+
 }
 
 export const createProduct = (title, description, imageUrl, price) =>
 {
     return async dispatch => {
         //Here you can execute any async code you want
-        const response = await fetch('https://app-shop-d3a87.firebaseio.com/products.json', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                title,
-                description,
-                imageUrl,
-                price
-            })
-        });
+        const response = await fetch(
+            'https://app-shop-d3a87.firebaseio.com/products.json', 
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title,
+                    description,
+                    imageUrl,
+                    price
+                })
+            }
+        );
 
         const responseData = await response.json();
 
@@ -92,14 +106,34 @@ export const createProduct = (title, description, imageUrl, price) =>
 
 export const updateProduct = (id, title, description, imageUrl) =>
 {
-    return {
-        type: UPDATE_PRODUCT,
-        pid: id,
-        productData:
-        {
-            title: title,
-            description,
-            imageUrl,
-        }
-    }
-}
+    return async dispatch => {
+        //Here you can execute any async code you want
+        
+        await fetch(
+            `https://app-shop-d3a87.firebaseio.com/products/${id}.json`, 
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    title,
+                    description,
+                    imageUrl
+                })
+            }
+        );
+
+        dispatch({
+            type: UPDATE_PRODUCT,
+            pid: id,
+            productData:
+            {
+                title: title,
+                description,
+                imageUrl,
+            }
+        });
+    };
+
+};
