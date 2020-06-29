@@ -9,32 +9,42 @@ export const fetchProducts = () => {
 
     return async dispatch => {
         //Here you can execute any async code you want
-        const response = await fetch(
-            'https://app-shop-d3a87.firebaseio.com/products.json'
-        );
-
-        const responseData = await response.json();
-        
-        const loadedProducts = [];
-
-        for (const key in responseData) {
-            loadedProducts.push(
-                new Product(
-                    key, 
-                    'u1', 
-                    responseData[key].title, 
-                    responseData[key].imageUrl, 
-                    responseData[key].description, 
-                    responseData[key].price
-                )
+        try {
+            const response = await fetch(
+                'https://app-shop-d3a87.firebaseio.com/products.json'
             );
-        
-        };
 
-        dispatch({
-            type: SET_PRODUCTS,
-            products: loadedProducts
-        });
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+    
+            const responseData = await response.json();
+            
+            const loadedProducts = [];
+    
+            for (const key in responseData) {
+                loadedProducts.push(
+                    new Product(
+                        key, 
+                        'u1', 
+                        responseData[key].title, 
+                        responseData[key].imageUrl, 
+                        responseData[key].description, 
+                        responseData[key].price
+                    )
+                );
+            
+            };
+    
+            dispatch({
+                type: SET_PRODUCTS,
+                products: loadedProducts
+            });
+        }
+        catch (err) {
+            //Maybe send to custom analytic server
+            throw err;
+        };
     };
 };
 
