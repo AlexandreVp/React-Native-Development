@@ -52,12 +52,16 @@ export const deleteProduct = productId =>
 {
     return async dispatch => {
 
-        await fetch(
+        const response = await fetch(
             `https://app-shop-d3a87.firebaseio.com/products/${productId}.json`, 
             {
                 method: 'DELETE',
             }
         );
+
+        if (!response.ok) {
+            throw new Error('Something went wrong!');
+        }
 
         dispatch({
             type: DELETE_PRODUCT,
@@ -109,7 +113,7 @@ export const updateProduct = (id, title, description, imageUrl) =>
     return async dispatch => {
         //Here you can execute any async code you want
         
-        await fetch(
+        const response = await fetch(
             `https://app-shop-d3a87.firebaseio.com/products/${id}.json`, 
             {
                 method: 'PATCH',
@@ -123,6 +127,10 @@ export const updateProduct = (id, title, description, imageUrl) =>
                 })
             }
         );
+
+        if (!response.ok) {
+            throw new Error('Something went wrong!');
+        }
 
         dispatch({
             type: UPDATE_PRODUCT,
