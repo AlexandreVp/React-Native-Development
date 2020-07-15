@@ -1,10 +1,12 @@
-import React, { useState, useReducer, useCallback } from 'react';
+import React, { useState, useEffect, useReducer, useCallback } from 'react';
 import {
-  ScrollView,
-  View,
-  KeyboardAvoidingView,
-  StyleSheet,
-  Button
+    ScrollView,
+    View,
+    KeyboardAvoidingView,
+    StyleSheet,
+    Button,
+    ActivityIndicator,
+    Alert
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -42,6 +44,8 @@ const formReducer = (state, action) => {
 
 const AuthScreen = props => {
     
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState();
     const [isSignup, setIsSignup] = useState(false);
 
     const dispatch = useDispatch();
@@ -58,22 +62,44 @@ const AuthScreen = props => {
         formIsValid: false
     });
 
-    const authHandler = () => {
+    useEffect(() => {
+        if (error) {
+            Alert.alert('An error occurred!', error, [{text: 'Okay'}]);
+        }
+    }, [error]);
+
+    const authHandler = async () => {
         if (isSignup) {
-            dispatch(
-                authActions.signup(
-                    formState.inputValues.email,
-                    formState.inputValues.password
-                )
-            );
+            setIsLoading(true);
+            setError(null);
+            try {
+                await dispatch(
+                    authActions.signup(
+                        formState.inputValues.email,
+                        formState.inputValues.password
+                    )
+                );
+            }
+            catch (err) {
+                setError(err.message);
+            }
+            setIsLoading(false);
         }
         else {
-            dispatch(
-                authActions.login(
-                    formState.inputValues.email,
-                    formState.inputValues.password
-                )
-            );
+            setIsLoading(true);
+            setError(null);
+            try {
+                await dispatch(
+                    authActions.login(
+                        formState.inputValues.email,
+                        formState.inputValues.password
+                    )
+                );
+            }
+            catch (err) {
+                setError(err.message);
+            }
+            setIsLoading(false);
         }
     };
 
@@ -122,11 +148,15 @@ const AuthScreen = props => {
                             initialValue=""
                         />
                         <View style={styles.buttonContainer}>
-                            <Button
-                                title={isSignup ? 'Sign Up' : 'Login'}
-                                color={Colors.primary}
-                                onPress={authHandler}
-                            />
+                            {isLoading ?
+                                <ActivityIndicator size='small' color={Colors.primary} />
+                                :
+                                <Button
+                                    title={isSignup ? 'Sign Up' : 'Login'}
+                                    color={Colors.primary}
+                                    onPress={authHandler}
+                                />
+                            }
                         </View>
                         <View style={styles.buttonContainer}>
                             <Button
