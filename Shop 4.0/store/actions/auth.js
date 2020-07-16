@@ -35,7 +35,9 @@ export const signup = (email, password) => {
         console.log(resData);
 
         dispatch({
-            type: SIGNUP
+            type: SIGNUP,
+            token: resData.idToken,
+            userId: resData.localId
         });
     };
 };
@@ -79,7 +81,9 @@ export const login = (email, password) => {
         console.log(resData);
 
         dispatch({
-            type: LOGIN
+            type: LOGIN,
+            token: resData.idToken,
+            userId: resData.localId
         });
     };
 };
