@@ -117,7 +117,6 @@ const ShopNavigator = createDrawerNavigator(
 							dispatch(
 								authActions.logout()
 							);
-							props.navigation.navigate('Auth');
 						}}/>
 					</SafeAreaView>
 				</View>
