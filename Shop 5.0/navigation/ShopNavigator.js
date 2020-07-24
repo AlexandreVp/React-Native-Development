@@ -293,10 +293,10 @@ export const AuthNavigator = () => {
 // 	}
 // );
 
-const MainNavigator = createSwitchNavigator({
-	Startup: StartupScreen,
-	Auth: AuthNavigator,
-	Shop: ShopNavigator
-});
+// const MainNavigator = createSwitchNavigator({
+// 	Startup: StartupScreen,
+// 	Auth: AuthNavigator,
+// 	Shop: ShopNavigator
+// });
 
-export default createAppContainer(MainNavigator);
+// export default createAppContainer(MainNavigator);
