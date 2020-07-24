@@ -1,14 +1,13 @@
 import React from 'react'
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack'
-import { createDrawerNavigator, DrawerNavigatorItems } from 'react-navigation-drawer'
 import { Platform, SafeAreaView, Button, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer'
 
 import { useDispatch } from 'react-redux';
 import * as authActions from '../store/actions/auth';
 
-import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
+import ProductsOverviewScreen, { screenOptions } from '../screens/shop/ProductsOverviewScreen';
 import ProductDetailScreen from '../screens/shop/ProductDetailScreen'
 import CartScreen from '../screens/shop/CartScreen'
 import OrdersScreen from '../screens/shop/OrdersScreen'
@@ -35,25 +34,51 @@ const defaultNavOptions =
 	headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary
 };
 
-const ProductsNavigator = createStackNavigator(
-	{
-		ProductsOverview: ProductsOverviewScreen,
-		ProductDetail: ProductDetailScreen,
-		Cart: CartScreen
-	},
-	{
-		navigationOptions:
-		{
-			drawerIcon: drawerConfig => 
-			<Ionicons 
-				name={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
-				size={23}
-				color={drawerConfig.tintColor}
+const ProductsStackNavigator = createStackNavigator();
+
+export const ProductsNavigator = () => {
+	return (
+		<ProductsStackNavigator.Navigator 
+			screenOptions={defaultNavOptions}
+		>
+
+			<ProductsStackNavigator.Screen 
+				name='ProductsOverview'
+				component={ProductsOverviewScreen}
+				options={screenOptions}
 			/>
-		},
-		defaultNavigationOptions: defaultNavOptions
-	}
-);
+			<ProductsStackNavigator.Screen 
+				name='ProductDetail'
+				component={ProductDetailScreen}
+			/>
+			<ProductsStackNavigator.Screen 
+				name='Cart'
+				component={CartScreen}
+			/>
+
+		</ProductsStackNavigator.Navigator>
+	);
+};
+
+// const ProductsNavigator = createStackNavigator(
+// 	{
+// 		ProductsOverview: ProductsOverviewScreen,
+// 		ProductDetail: ProductDetailScreen,
+// 		Cart: CartScreen
+// 	},
+// 	{
+// 		navigationOptions:
+// 		{
+// 			drawerIcon: drawerConfig => 
+// 			<Ionicons 
+// 				name={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
+// 				size={23}
+// 				color={drawerConfig.tintColor}
+// 			/>
+// 		},
+// 		defaultNavigationOptions: defaultNavOptions
+// 	}
+// );
 
 const OrdersNavigator = createStackNavigator(
 	{
