@@ -35,7 +35,6 @@ const defaultNavOptions =
 };
 
 const ProductsStackNavigator = createStackNavigator();
-
 const ProductsNavigator = () => {
 	return (
 		<ProductsStackNavigator.Navigator 
@@ -62,28 +61,7 @@ const ProductsNavigator = () => {
 	);
 };
 
-// const ProductsNavigator = createStackNavigator(
-// 	{
-// 		ProductsOverview: ProductsOverviewScreen,
-// 		ProductDetail: ProductDetailScreen,
-// 		Cart: CartScreen
-// 	},
-// 	{
-// 		navigationOptions:
-// 		{
-// 			drawerIcon: drawerConfig => 
-// 			<Ionicons 
-// 				name={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
-// 				size={23}
-// 				color={drawerConfig.tintColor}
-// 			/>
-// 		},
-// 		defaultNavigationOptions: defaultNavOptions
-// 	}
-// );
-
 const OrdersStackNavigator = createStackNavigator();
-
 const OrdersNavigator = () => {
 	return (
 		<OrdersStackNavigator.Navigator
@@ -100,26 +78,7 @@ const OrdersNavigator = () => {
 	)
 };
 
-// const OrdersNavigator = createStackNavigator(
-// 	{
-// 		Orders: OrdersScreen
-// 	},
-// 	{
-// 		navigationOptions:
-// 		{
-// 			drawerIcon: drawerConfig => 
-// 			<Ionicons 
-// 				name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}
-// 				size={23}
-// 				color={drawerConfig.tintColor}
-// 			/>
-// 		},
-// 		defaultNavigationOptions: defaultNavOptions
-// 	}
-// );
-
 const AdminStackNavigator = createStackNavigator();
-
 const AdminNavigator = () => {
 	return (
 		<AdminStackNavigator.Navigator 
@@ -141,27 +100,7 @@ const AdminNavigator = () => {
 	);
 };
 
-// const AdminNavigator = createStackNavigator(
-// 	{
-// 		UserProducts: UserProductsScreen,
-// 		EditProduct: EditProductScreen
-// 	},
-// 	{
-// 		navigationOptions:
-// 		{
-// 			drawerIcon: drawerConfig => 
-// 			<Ionicons 
-// 				name={Platform.OS === 'android' ? 'md-create' : 'ios-create'}
-// 				size={23}
-// 				color={drawerConfig.tintColor}
-// 			/>
-// 		},
-// 		defaultNavigationOptions: defaultNavOptions
-// 	}
-// );
-
 const ShopDrawerNavigator = createDrawerNavigator();
-
 export const ShopNavigator = () => {
 
 	const dispatch = useDispatch();
@@ -233,41 +172,7 @@ export const ShopNavigator = () => {
 	)
 };
 
-// const ShopNavigator = createDrawerNavigator(
-// 	{
-// 		Products: ProductsNavigator,
-// 		Orders: OrdersNavigator,
-// 		Admin: AdminNavigator
-// 	},
-// 	{
-// 		contentOptions:
-// 		{
-// 			activeTintColor: Colors.primary
-// 		},
-// 		contentComponent: props => {
-
-// 			const dispatch = useDispatch();
-
-// 			return (
-// 				<View style={{flex: 1, padding: 20}}>
-// 					<SafeAreaView forceInset={{top: 'always', horizontal: 'never'}} >
-// 						<DrawerNavigatorItems 
-// 							{...props}
-// 						/>
-// 						<Button title='Logout' color={Colors.primary} onPress={() => {
-// 							dispatch(
-// 								authActions.logout()
-// 							);
-// 						}}/>
-// 					</SafeAreaView>
-// 				</View>
-// 			)
-// 		}
-// 	}
-// );
-
 const AuthStackNavigator = createStackNavigator();
-
 export const AuthNavigator = () => {
 	return (
 		<AuthStackNavigator.Navigator
@@ -283,20 +188,3 @@ export const AuthNavigator = () => {
 		</AuthStackNavigator.Navigator>
 	)
 };
-
-// const AuthNavigator = createStackNavigator(
-// 	{
-// 		Auth: AuthScreen,
-// 	}, 
-// 	{
-// 		defaultNavigationOptions: defaultNavOptions
-// 	}
-// );
-
-// const MainNavigator = createSwitchNavigator({
-// 	Startup: StartupScreen,
-// 	Auth: AuthNavigator,
-// 	Shop: ShopNavigator
-// });
-
-// export default createAppContainer(MainNavigator);
