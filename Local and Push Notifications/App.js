@@ -31,15 +31,22 @@ export default function App() {
 	}, []);
 
 	useEffect(() => {
+		//allows to define a function that should run when a user interacted with a notification whilst the app
+		//was not running
+		const backgroundSubscription = Notifications.addNotificationResponseReceivedListener(response => {
+			console.log(response);
+		});
+
 		//method that allows us to define a function that should be executed when a notification is received
 		//and the app is running
-		const subscription = Notifications.addNotificationReceivedListener(notification => {
+		const foregroundSubscription = Notifications.addNotificationReceivedListener(notification => {
 			console.log(notification);
 		});
 
 		//return a cleanup fuction
 		return () => {
-			subscription.remove();
+			backgroundSubscription.remove();
+			foregroundSubscription.remove();
 		};
 	}, [])
 
