@@ -4,6 +4,14 @@ import { StyleSheet, Button, View } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 
+//set how notifications should be handled if the app is running
+Notifications.setNotificationHandler({
+	handleNotification: async () => {
+		return {
+			shouldShowAlert: true
+		};
+	}
+});
 
 export default function App() {
 
@@ -30,7 +38,7 @@ export default function App() {
 				body: 'This is the first local notification we are sending!',
 			},
 			trigger: {
-				seconds: 60,
+				seconds: 5,
 			},
 		});
 	};
