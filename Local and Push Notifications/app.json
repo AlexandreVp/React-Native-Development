@@ -1,9 +1,8 @@
 {
   "expo": {
-    "name": "GuessNumber",
-    "slug": "GuessNumber",
+    "name": "Local and Push Notifications",
+    "slug": "Local-and-Push-Notifications",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android",

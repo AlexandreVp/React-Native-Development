@@ -1,10 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Button, View } from 'react-native';
 import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
 
 
-export default function App() 
-{
+export default function App() {
+
+	useEffect(() => {
+		Permissions.getAsync(Permissions.NOTIFICATIONS)
+			.then(statusObj => {
+				if (statusObj.status !== 'granted') {
+					return Permissions.askAsync(Permissions.NOTIFICATIONS);
+				}
+				return statusObj;
+			})
+			.then(statusObj => {
+				if (statusObj.status !== 'granted') {
+					return;
+				}
+			});
+	}, []);
+
 	const triggerNotificationHandler = () => {
 		//with this we always schedule a local notification
 		Notifications.scheduleNotificationAsync({
@@ -13,7 +30,7 @@ export default function App()
 				body: 'This is the first local notification we are sending!',
 			},
 			trigger: {
-				seconds: 10,
+				seconds: 60,
 			},
 		});
 	};
@@ -22,6 +39,7 @@ export default function App()
 
 		<View style={styles.container}>
 			<Button title='Trigger Notification' onPress={triggerNotificationHandler} />
+			<StatusBar style='light' />
 		</View>
 
 	);
