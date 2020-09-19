@@ -15,6 +15,8 @@ Notifications.setNotificationHandler({
 
 export default function App() {
 
+	const [pushToken, setPushToken] = useState();
+
 	useEffect(() => {
 		Permissions.getAsync(Permissions.NOTIFICATIONS)
 			.then(statusObj => {
@@ -33,7 +35,7 @@ export default function App() {
 				return Notifications.getExpoPushTokenAsync();
 			})
 			.then(response => {
-				const token = response.data;
+				setPushToken(response.data);
 			})
 			.catch(err => {
 				return null;
@@ -84,10 +86,32 @@ export default function App() {
 		});
 	};
 
+	const triggerNotificationHandler = () => {
+		//Wherever you wanna send a push notification, you need to send a http request to Expo's servers.
+		//We can do this with the fetch API, using the URL to Expo's push notification server, which we'll leverage
+		//to deliver our push notification to a different device
+		fetch('https://exp.host/--/api/v2/push/send', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Accept-Encoding': 'gzip, deflate',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				to: pushToken,
+				data: {
+					extraData: 'Some data'
+				},
+				title: 'Sent via the app',
+				body: 'This push notification was sent via the app!'
+			})
+		});
+	};
+
 	return (
 
 		<View style={styles.container}>
-			<Button title='Trigger Notification' />
+			<Button title='Trigger Notification' onPress={triggerNotificationHandler} />
 			<StatusBar style='light' />
 		</View>
 
