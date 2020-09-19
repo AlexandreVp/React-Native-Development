@@ -25,9 +25,23 @@ export default function App() {
 			})
 			.then(statusObj => {
 				if (statusObj.status !== 'granted') {
-					return;
+					throw new Error('Permission not granted!');
 				}
+			})
+			.then(() => {
+
+			})
+			.catch(err => {
+				return null;
 			});
+		
+		//to get push notifications we'll need to sign our app up in the notifications servers and get the ID which
+		//allows us to use the ID to push notifications (we do this in the third 'then' block). We need to tell
+		//Expo to basically sign our app up so to say. Behind the scenes Expo do all the job for us. We only reach
+		//this then block if we do have an active permission. So if the permission was not 'granted' we don't
+		//really wanna return, because then the next then block would still be triggered, even though we don't
+		//have permission. Instead we can throw a new Error.
+		
 	}, []);
 
 	useEffect(() => {
@@ -50,7 +64,7 @@ export default function App() {
 		};
 	}, [])
 
-	const triggerNotificationHandler = () => {
+	const localTriggerNotificationHandler = () => {
 		//with this we always schedule a local notification
 		Notifications.scheduleNotificationAsync({
 			content: {
@@ -69,7 +83,7 @@ export default function App() {
 	return (
 
 		<View style={styles.container}>
-			<Button title='Trigger Notification' onPress={triggerNotificationHandler} />
+			<Button title='Trigger Notification' />
 			<StatusBar style='light' />
 		</View>
 
