@@ -32,8 +32,8 @@ export default function App() {
 				//method that will talk to Expo's servers and we'll sign up our app with Expo server
 				return Notifications.getExpoPushTokenAsync();
 			})
-			.then(data => {
-				console.log(data);
+			.then(response => {
+				const token = response.data;
 			})
 			.catch(err => {
 				return null;
