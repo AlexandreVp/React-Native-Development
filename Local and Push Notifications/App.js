@@ -29,7 +29,11 @@ export default function App() {
 				}
 			})
 			.then(() => {
-
+				//method that will talk to Expo's servers and we'll sign up our app with Expo server
+				return Notifications.getExpoPushTokenAsync();
+			})
+			.then(data => {
+				console.log(data);
 			})
 			.catch(err => {
 				return null;
