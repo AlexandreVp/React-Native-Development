@@ -30,12 +30,28 @@ export default function App() {
 			});
 	}, []);
 
+	useEffect(() => {
+		//method that allows us to define a function that should be executed when a notification is received
+		//and the app is running
+		const subscription = Notifications.addNotificationReceivedListener(notification => {
+			console.log(notification);
+		});
+
+		//return a cleanup fuction
+		return () => {
+			subscription.remove();
+		};
+	}, [])
+
 	const triggerNotificationHandler = () => {
 		//with this we always schedule a local notification
 		Notifications.scheduleNotificationAsync({
 			content: {
 				title: 'My first local notification',
 				body: 'This is the first local notification we are sending!',
+				data: {
+					mySpecialData: 'Some text'
+				},
 			},
 			trigger: {
 				seconds: 5,
