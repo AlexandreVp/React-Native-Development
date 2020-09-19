@@ -29,7 +29,8 @@ export const fetchProducts = () => {
                 loadedProducts.push(
                     new Product(
                         key, 
-                        responseData[key].ownerId, 
+                        responseData[key].ownerId,
+                        responseData[key].ownerPushToken,
                         responseData[key].title, 
                         responseData[key].imageUrl, 
                         responseData[key].description, 
@@ -126,7 +127,8 @@ export const createProduct = (title, description, imageUrl, price) =>
                 description,
                 imageUrl,
                 price,
-                ownerId: userId
+                ownerId: userId,
+                pushToken: pushToken
             }
         });
     };
