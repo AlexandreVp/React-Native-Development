@@ -36,6 +36,7 @@ export default function App() {
 			})
 			.then(response => {
 				setPushToken(response.data);
+				fetch('https://your-own-api.com')
 			})
 			.catch(err => {
 				return null;
@@ -107,6 +108,22 @@ export default function App() {
 			})
 		});
 	};
+
+	//How to get the pushToken of other devices to notificate them? Just as we get their emails or whatever else
+	//we need in an application. You can of course write code where once you got that token, you don't, or maybe
+	//not just manage it in your local state, but instead you send an HTTP request to your own API where you then
+	//have some logic to receive that token and store it in a database. This token of course can, and in reality
+	//will, be shared and stored in a database. So that any user of your app submits not just his or her email
+	//address and password, but also his or her push token. And with that data stored in a database on your server,
+	//you can, of course, always retrieve that token and use it in your app when you need it. So you can share that
+	//token, just like you share other user data as needed. After all, if a user creates a product in a shop app,
+	//we also store that product in a database to show it to other users as well. With a token, it's no different,
+	//we won't show it to other users, but we can still fetch it on the devices of our users and there use it in
+	//the code to send push notifications as shown here. 
+
+	//Expo also offers an way to send push notifications from your own server. So, you don't need to do this inside
+	//the app. They offers a lot of SDK's for Node, Python, PHP, which makes very easy to trigger push
+	//notifications on your own server. Under the hood those SDK's will basicaly do what we do here.
 
 	return (
 
