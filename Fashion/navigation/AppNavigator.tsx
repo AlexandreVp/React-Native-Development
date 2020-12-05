@@ -10,7 +10,7 @@ const AppNavigator = () => {
     return (
         <NavigationContainer>
 
-          <AuthenticationNavigator />
+          	<AuthenticationNavigator />
 
         </NavigationContainer>
     );
