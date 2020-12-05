@@ -10,7 +10,7 @@ enableScreens();
 
 export default function App() {
 
-	let fontsLoaded = useFonts(FontMap);
+	let [fontsLoaded] = useFonts(FontMap);
 
 	if (!fontsLoaded) {
 		return <AppLoading />

@@ -1,34 +1,53 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions, StatusBar } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import Animated from 'react-native-reanimated';
+import { useValue, onScrollEvent, interpolateColor } from 'react-native-redash/lib/module/v1';
 
-import Slide from '../components/Slide';
+import Slide, { SLIDE_HEIGHT } from '../components/Slide';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
+
+const slides = [
+    { label: 'Relaxed', color: '#bfeaf5' },
+    { label: 'Playful', color: '#beecc4' },
+    { label: 'Excentric', color: '#ffe4d9' },
+    { label: 'Funky', color: '#ffdddd' },
+]
 
 const Onboarding = () => {
+
+    const toggle = useValue(0);
+    const onScroll = onScrollEvent({ toggle });
+    const backgroundColor = interpolateColor(toggle, {
+        inputRange: slides.map((_, index) => index * width),
+        outputRange: slides.map((value) => value.color),
+    })
+
     return (
         <View style={styles.container}>
             <StatusBar hidden />
-            <View style={styles.slider}>
-                <ScrollView 
+            <Animated.View style={{...styles.slider, backgroundColor: backgroundColor}}>
+                <Animated.ScrollView 
                     horizontal 
                     snapToInterval={width} 
                     decelerationRate='fast'
                     showsHorizontalScrollIndicator={false}
                     bounces={false}
+                    scrollEventThrottle={1}
+                    {...{ onScroll }}
                 >
+                    {slides.map((value, index) => {
+                        <Slide key={index} label={value.label} right={!!(index%2)}/>
+                    })}
                     <Slide label='Relaxed' />
                     <Slide label='Playful' right/>
                     <Slide label='Excentric' />
                     <Slide label='Funky' right/>
-                </ScrollView>
-            </View>
+                </Animated.ScrollView>
+            </Animated.View>
             <View style={styles.footer}>
-                <View style={{...StyleSheet.absoluteFillObject, backgroundColor:'cyan' }} />
-                <View style={styles.footerOverlay}>
-
-                </View>
+                <Animated.View style={{...StyleSheet.absoluteFillObject, backgroundColor }} />
+                <Animated.View style={{ flex: 1, backgroundColor: 'white', borderTopLeftRadius: 75 }} />
             </View>
         </View>
     )
@@ -42,7 +61,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     slider: {
-        height: 0.61 * height,
+        height: SLIDE_HEIGHT,
         backgroundColor: 'cyan',
         borderBottomRightRadius: 75
     },
