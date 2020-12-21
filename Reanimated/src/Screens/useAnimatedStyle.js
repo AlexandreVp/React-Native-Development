@@ -1,24 +1,26 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
-import Animated, { useDerivedValue, useSharedValue } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 
 import Colors from '../Constants/Colors';
 import Box from '../Components/Box';
 
-const UseDerivedValue = () => {
+const UseAnimatedStyle = () => {
 
-    const progress = useSharedValue(0);
+    const width = useSharedValue(50);
 
-    const width = useDerivedValue(() => {
-        return progress.value * 250;
+    const animatedStyle = useAnimatedStyle(() => {
+        return {
+            width: width.value
+        }
     });
 
     return (
         <View style={styles.container}>
-            <Box width={width.value} />
+            <Animated.View style={[styles.box, animatedStyle]} />
             <RectButton style={styles.button} onPress={() => (
-                progress.value = Math.random()
+                width.value = Math.random() * 300
             )}>
                 <Text style={{color: 'white'}}>Button</Text>
             </RectButton>
@@ -27,7 +29,7 @@ const UseDerivedValue = () => {
 }
 
 export const screenOptions =  {
-    headerTitle: 'useDerivedValue'
+    headerTitle: 'useAnimatedStyle'
 }
 
 const styles = StyleSheet.create({
@@ -51,4 +53,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default UseDerivedValue;
+export default UseAnimatedStyle;
