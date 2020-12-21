@@ -4,6 +4,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import useAnimatedStyle, { screenOptions as useAnimatedStyleOptions } from '../Screens/useAnimatedStyle';
 import useDerivedValue, { screenOptions as useDerivedValueOptions } from '../Screens/useDerivedValue';
 import useSharedValue, { screenOptions as useSharedValueOptions } from '../Screens/useSharedValue';
+import withTiming from "../Screens/withTiming";
 
 
 const defaultNavOptions =
@@ -44,6 +45,13 @@ export const AppNavigator = () => {
                 component={useSharedValue}
                 options={defaultNavOptions}
             />
+            
+            <DrawerNavigator.Screen 
+                name='withTiming'
+                component={withTiming}
+                options={defaultNavOptions}
+            />
+
         </DrawerNavigator.Navigator>
     )
 };
