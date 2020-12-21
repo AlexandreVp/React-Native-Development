@@ -1,6 +1,7 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
+import useDerivedValue, { screenOptions as useDerivedValueOptions } from '../Screens/useDerivedValue';
 import useSharedValue, { screenOptions as useSharedValueOptions } from '../Screens/useSharedValue';
 
 
@@ -24,6 +25,12 @@ export const AppNavigator = () => {
                 activeTintColor: 'white'
             }}
         >
+            <DrawerNavigator.Screen 
+                name='useDerivedValue'
+                component={useDerivedValue}
+                options={defaultNavOptions}
+            />
+
             <DrawerNavigator.Screen 
                 name='useSharedValue'
                 component={useSharedValue}
