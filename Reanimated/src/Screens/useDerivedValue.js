@@ -8,17 +8,17 @@ import Box from '../Components/Box';
 
 const UseDerivedValue = () => {
 
-    const progress = useSharedValue(0);
+    const progress = useSharedValue(50);
 
     const width = useDerivedValue(() => {
-        return progress.value * 250;
+        return progress.value;
     });
 
     return (
         <View style={styles.container}>
             <Box width={width.value} />
             <RectButton style={styles.button} onPress={() => (
-                progress.value = Math.random()
+                progress.value = Math.random() * 250
             )}>
                 <Text style={{color: 'white'}}>Button</Text>
             </RectButton>

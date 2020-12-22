@@ -1,9 +1,11 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
+import Reanimated from "../Screens/Reanimated";
 import useAnimatedStyle, { screenOptions as useAnimatedStyleOptions } from '../Screens/useAnimatedStyle';
 import useDerivedValue, { screenOptions as useDerivedValueOptions } from '../Screens/useDerivedValue';
 import useSharedValue, { screenOptions as useSharedValueOptions } from '../Screens/useSharedValue';
+import withSequence from "../Screens/withSequence";
 import withTiming from "../Screens/withTiming";
 
 
@@ -29,6 +31,12 @@ export const AppNavigator = () => {
         >
 
             <DrawerNavigator.Screen 
+                name='Reanimated'
+                component={Reanimated}
+                options={defaultNavOptions}
+            />
+
+            <DrawerNavigator.Screen 
                 name='useAnimatedStyle'
                 component={useAnimatedStyle}
                 options={defaultNavOptions}
@@ -43,6 +51,12 @@ export const AppNavigator = () => {
             <DrawerNavigator.Screen 
                 name='useSharedValue'
                 component={useSharedValue}
+                options={defaultNavOptions}
+            />
+
+            <DrawerNavigator.Screen 
+                name='withSequence'
+                component={withSequence}
                 options={defaultNavOptions}
             />
             
