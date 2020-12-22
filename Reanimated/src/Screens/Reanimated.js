@@ -6,20 +6,34 @@ import Animated, {
     withTiming,
     Easing,
     interpolate,
-    Extrapolate
+    Extrapolate,
+    withSequence
 } from "react-native-reanimated";
 
 import Colors from '../Constants/Colors';
+import heroImg from '../../assets/images/hero.png';
 
 const Reanimated = () => {
 
     const titlePosition = useSharedValue(200);
+    const imagePosition = useSharedValue(-60);
     // const titleOpacity = useSharedValue(0);
 
     useEffect(() => {
-        titlePosition.value = withTiming(0, {
-            duration: 1000,
+        imagePosition.value = withTiming(0, {
+            duration: 600,
             easing: Easing.bezier(.50,.1,.20,.95),
+        }, () => {
+            titlePosition.value = withSequence( 
+                withTiming(0, {
+                    duration: 1000,
+                    easing: Easing.bezier(.50,.1,.20,.95),
+                }),
+                withTiming(20, {
+                    duration: 1000,
+                    easing: Easing.bezier(.50,.1,.20,.95),
+                }),
+            );
         });
 
         // titleOpacity.value = withTiming(1, {
@@ -35,16 +49,25 @@ const Reanimated = () => {
             ],
             opacity: interpolate(
                 titlePosition.value,
-                [200, 0],
-                [0, 1],
+                [200, 20, 0],
+                [0, 1, 1],
                 Extrapolate.CLAMP,
             )
             // opacity: titleOpacity.value,
         };
     });
 
+    const heroStyle = useAnimatedStyle(() => {
+        return {
+            transform: [
+                { translateY: imagePosition.value }
+            ],
+        }
+    });
+
     return (
         <View style={styles.container}>
+            <Animated.Image source={heroImg} style={[styles.hero, heroStyle]}/>
             <Animated.Text style={[styles.title, titleStyle]}>Let's animate!!!</Animated.Text>
         </View>
     );
@@ -56,6 +79,11 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.primary,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    hero: {
+        width: 288,
+        height: 200,
+        marginBottom: 40
     },
     title: {
         fontWeight: 'bold',
