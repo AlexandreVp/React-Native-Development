@@ -2,6 +2,7 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Reanimated from "../Screens/Reanimated";
+import Scroll from "../Screens/Scroll";
 import useAnimatedStyle, { screenOptions as useAnimatedStyleOptions } from '../Screens/useAnimatedStyle';
 import useDerivedValue, { screenOptions as useDerivedValueOptions } from '../Screens/useDerivedValue';
 import useSharedValue, { screenOptions as useSharedValueOptions } from '../Screens/useSharedValue';
@@ -34,6 +35,11 @@ export const AppNavigator = () => {
                 name='Reanimated'
                 component={Reanimated}
                 options={defaultNavOptions}
+            />
+
+            <DrawerNavigator.Screen 
+                name='Scroll'
+                component={Scroll}
             />
 
             <DrawerNavigator.Screen 

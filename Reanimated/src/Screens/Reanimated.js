@@ -49,8 +49,8 @@ const Reanimated = () => {
             ],
             opacity: interpolate(
                 titlePosition.value,
-                [200, 20, 0],
-                [0, 1, 1],
+                [200, 0],
+                [0, 1],
                 Extrapolate.CLAMP,
             )
             // opacity: titleOpacity.value,
