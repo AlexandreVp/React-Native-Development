@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Reanimated from "../Screens/Reanimated";
 import Drag, { screenOptions as dragScreenOptions } from '../Screens/Drag';
 import Scroll from "../Screens/Scroll";
+import useAnimatedScrollHandler from '../Screens/useAnimatedScrollHandler';
 import useAnimatedStyle, { screenOptions as useAnimatedStyleOptions } from '../Screens/useAnimatedStyle';
 import useDerivedValue, { screenOptions as useDerivedValueOptions } from '../Screens/useDerivedValue';
 import useSharedValue, { screenOptions as useSharedValueOptions } from '../Screens/useSharedValue';
@@ -64,12 +65,18 @@ export const AppNavigator = () => {
             />
 
             <DrawerNavigator.Screen 
+                name='useAnimatedScrollHandler'
+                component={useAnimatedScrollHandler}
+                options={defaultNavOptions}
+            />
+
+            <DrawerNavigator.Screen 
                 name='useAnimatedStyle'
                 component={useAnimatedStyle}
                 options={defaultNavOptions}
             />
 
-            <DrawerNavigator.Screen 
+            {/* <DrawerNavigator.Screen 
                 name='useDerivedValue'
                 component={useDerivedValue}
                 options={defaultNavOptions}
@@ -79,7 +86,7 @@ export const AppNavigator = () => {
                 name='useSharedValue'
                 component={useSharedValue}
                 options={defaultNavOptions}
-            />
+            /> */}
 
             <DrawerNavigator.Screen 
                 name='withSequence'
