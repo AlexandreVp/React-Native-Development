@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text, Dimensions } from 'react-native';
-import Animated, { useAnimatedGestureHandler, useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
+import Animated, { useAnimatedGestureHandler, useSharedValue, useAnimatedStyle, withSpring, withDecay } from 'react-native-reanimated';
 import { PanGestureHandler } from "react-native-gesture-handler";
 import { useHeaderHeight } from '@react-navigation/stack';
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
@@ -14,8 +14,6 @@ const HEIGHT = Dimensions.get('window').height;
 const Drag = () => {
     const HEADER_HEIGHT = useHeaderHeight();
 
-    console.log(HEADER_HEIGHT);
-
     const posX = useSharedValue(0);
     const posY = useSharedValue(0);
 
@@ -28,15 +26,36 @@ const Drag = () => {
             let activePosX = context.posX + event.translationX;
             let activePosY = context.posY + event.translationY;
             if (activePosX + 150 < WIDTH && activePosX > 0) {
-                posX.value = context.posX + event.translationX;
+                posX.value = activePosX;
             }
             if ((activePosY + 150 < HEIGHT - HEADER_HEIGHT) && activePosY > 0) {
-                posY.value = context.posY + event.translationY;
+                posY.value = activePosY;
             }
         },
-        onEnd: () => {
-            posX.value = withSpring(0);
-            posY.value = withSpring(0);
+        onEnd: (event, context) => {
+            posX.value = withDecay({
+                velocity: event.velocityX,
+            });
+            posY.value = withDecay({
+                velocity: event.velocityY,
+            });
+
+            posX.value = withSpring(0, {
+                damping: 10,                            //amortecimento: 10
+                mass: 1,                                //massa: 1
+                stiffness: 100,                         //rigidez: 100
+                overshootClamping: false,                //travamento na ultrapassagem: false
+                restDisplacementThreshold: 0.001,       //limiar de deslocamento de descanso: 0.001
+                restSpeedThreshold: 0.001               //Limiar de velocidade de descanso: 0.001
+            });
+            posY.value = withSpring(0, {
+                damping: 10,
+                mass: 1,
+                stiffness: 100,
+                overshootClamping: false,
+                restDisplacementThreshold: 0.001,
+                restSpeedThreshold: 0.001
+            });
         }
     });
 
@@ -88,7 +107,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#2d2d86",
         borderRadius: 10,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        position: 'absolute'
     },
     textBox: {
         fontWeight: 'bold',
