@@ -9,8 +9,7 @@ import useAnimatedProps from '../Screens/useAnimatedProps';
 import useAnimatedReaction from '../Screens/useAnimatedReaction';
 import useAnimatedScrollHandler from '../Screens/useAnimatedScrollHandler';
 import useAnimatedStyle, { screenOptions as useAnimatedStyleOptions } from '../Screens/useAnimatedStyle';
-import useDerivedValue, { screenOptions as useDerivedValueOptions } from '../Screens/useDerivedValue';
-import useSharedValue, { screenOptions as useSharedValueOptions } from '../Screens/useSharedValue';
+import withRepeat from '../Screens/withRepeat';
 import withSequence from "../Screens/withSequence";
 import withTiming from "../Screens/withTiming";
 
@@ -90,17 +89,11 @@ export const AppNavigator = () => {
                 options={defaultNavOptions}
             />
 
-            {/* <DrawerNavigator.Screen 
-                name='useDerivedValue'
-                component={useDerivedValue}
+            <DrawerNavigator.Screen 
+                name='withRepeat'
+                component={withRepeat}
                 options={defaultNavOptions}
             />
-
-            <DrawerNavigator.Screen 
-                name='useSharedValue'
-                component={useSharedValue}
-                options={defaultNavOptions}
-            /> */}
 
             <DrawerNavigator.Screen 
                 name='withSequence'
