@@ -68,7 +68,7 @@ const Reanimated = () => {
     return (
         <View style={styles.container}>
             <Animated.Image source={heroImg} style={[styles.hero, heroStyle]}/>
-            <Animated.Text style={[styles.title, titleStyle]}>Let's animate!!!</Animated.Text>
+            <Animated.Text style={[styles.title, titleStyle]}>Gestures on React Native!!!</Animated.Text>
         </View>
     );
 }

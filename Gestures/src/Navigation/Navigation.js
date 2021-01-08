@@ -2,7 +2,7 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from "@react-navigation/stack";
 
-import Gestures from "../Screens/Reanimated";
+import Gestures from "../Screens/Gestures";
 import Drag, { screenOptions as dragScreenOptions } from '../Screens/Drag';
 import Scroll from "../Screens/Scroll";
 
