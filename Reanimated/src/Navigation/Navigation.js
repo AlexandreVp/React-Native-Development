@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Reanimated from "../Screens/Reanimated";
 import Drag, { screenOptions as dragScreenOptions } from '../Screens/Drag';
+import runOnJS from '../Screens/runOnJS';
 import Scroll from "../Screens/Scroll";
 import scrollTo from "../Screens/scrollTo";
 import useAnimatedProps from '../Screens/useAnimatedProps';
@@ -59,6 +60,12 @@ export const AppNavigator = () => {
             <DrawerNavigator.Screen 
                 name='Drag'
                 component={DragNavigator}
+            />
+
+            <DrawerNavigator.Screen 
+                name='runOnJS'
+                component={runOnJS}
+                options={defaultNavOptions}
             />
 
             <DrawerNavigator.Screen 
