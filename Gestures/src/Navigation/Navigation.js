@@ -3,6 +3,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from "@react-navigation/stack";
 
 import Gestures from "../Screens/Gestures";
+import longPressGestureHandler from '../Screens/LongPressGestureHandler';
 import Drag, { screenOptions as dragScreenOptions } from '../Screens/Drag';
 import panGestureHandler from '../Screens/PanGestureHandler';
 import Scroll from "../Screens/Scroll";
@@ -47,6 +48,12 @@ export const AppNavigator = () => {
             <DrawerNavigator.Screen 
                 name='Gestures'
                 component={Gestures}
+                options={defaultNavOptions}
+            />
+
+            <DrawerNavigator.Screen 
+                name='LongPressGestureHandler'
+                component={longPressGestureHandler}
                 options={defaultNavOptions}
             />
 
