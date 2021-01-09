@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
+import { useAnimatedGestureHandler } from 'react-native-reanimated';
 
 const tapGestureHandler = () => {
 
@@ -18,8 +19,8 @@ const tapGestureHandler = () => {
 
     return (
         <View style={styles.container}>
-            <TapGestureHandler onHandlerStateChange={onTap} numberOfTaps={1}>
-                <TapGestureHandler onHandlerStateChange={onDoubleTap} numberOfTaps={2}>
+            <TapGestureHandler maxDist={10} onHandlerStateChange={onTap} numberOfTaps={1}>
+                <TapGestureHandler maxDist={10} onHandlerStateChange={onDoubleTap} numberOfTaps={2}>
                     <View style={styles.box}>
                         <Text>Tap Here</Text>
                     </View>
