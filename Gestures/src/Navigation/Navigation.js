@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Gestures from "../Screens/Gestures";
 import Drag, { screenOptions as dragScreenOptions } from '../Screens/Drag';
+import panGestureHandler from '../Screens/PanGestureHandler';
 import Scroll from "../Screens/Scroll";
 
 
@@ -51,6 +52,12 @@ export const AppNavigator = () => {
             <DrawerNavigator.Screen 
                 name='Drag'
                 component={DragNavigator}
+            />
+
+            <DrawerNavigator.Screen 
+                name='PanGestureHandler'
+                component={panGestureHandler}
+                options={defaultNavOptions}
             />
 
             <DrawerNavigator.Screen 
