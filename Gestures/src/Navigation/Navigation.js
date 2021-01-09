@@ -6,6 +6,7 @@ import Gestures from "../Screens/Gestures";
 import Drag, { screenOptions as dragScreenOptions } from '../Screens/Drag';
 import panGestureHandler from '../Screens/PanGestureHandler';
 import Scroll from "../Screens/Scroll";
+import tapGestureHandler from '../Screens/TapGestureHandler';
 
 
 const defaultNavOptions =
@@ -63,6 +64,12 @@ export const AppNavigator = () => {
             <DrawerNavigator.Screen 
                 name='Scroll'
                 component={Scroll}
+            />
+
+            <DrawerNavigator.Screen 
+                name='TapGestureHandler'
+                component={tapGestureHandler}
+                options={defaultNavOptions}
             />
 
         </DrawerNavigator.Navigator>
