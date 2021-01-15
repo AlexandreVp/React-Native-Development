@@ -1,13 +1,19 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
 import { useAnimatedGestureHandler } from 'react-native-reanimated';
+
+const { width, height } = Dimensions.get('window')
 
 const tapGestureHandler = () => {
 
     const onTap = (event) => {
         if (event.nativeEvent.state === State.ACTIVE) {
-            alert('One tap');
+            if (event.nativeEvent.x < width/2) {
+                alert('Left click')
+            } else {
+                alert('Right click')
+            }
         }
     }
 
@@ -19,7 +25,7 @@ const tapGestureHandler = () => {
 
     return (
         <View style={styles.container}>
-            <TapGestureHandler maxDist={10} onHandlerStateChange={onTap} numberOfTaps={1}>
+            <TapGestureHandler onHandlerStateChange={onTap} maxDist={10} numberOfTaps={1}>
                 <TapGestureHandler maxDist={10} onHandlerStateChange={onDoubleTap} numberOfTaps={2}>
                     <View style={styles.box}>
                         <Text>Tap Here</Text>
@@ -34,11 +40,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
+        alignItems: 'center'
     },
     box: {
         justifyContent: 'center',
         alignItems: 'center',
         height: 200,
+        width: width,
         borderWidth: 1
     },
 })
