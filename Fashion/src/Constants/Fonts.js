@@ -1,4 +1,4 @@
-const FONTS_FOLDER = "../../assets/Fonts/";
+const FONTS_FOLDER = '../../assets/Fonts/';
 
 export const Fonts = {
     SFProDisplayBold: 'SF-Pro-Display-Bold',

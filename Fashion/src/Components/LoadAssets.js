@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 const LoadAssets = ({ fonts, children }) => {
 
-    const fontsLoaded = useFonts(fonts);
+    const [fontsLoaded] = useFonts(fonts);
 
     if (!fontsLoaded) {
         return (
